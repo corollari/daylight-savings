@@ -1,16 +1,15 @@
 import numpy as np
 from radiation import solarRadiation
 
-# Params
-SAMPLES=1000
-LATITUDE=41.3818 #in degrees from equator
+#Params
 MINIMUM_LIGHT=101.95 #in Watts
-DAYLIGHT_SAVINGS=True #Simulació amb canvi d'horari?
 
-wakingTime=np.random.normal(420.39, 40.7, SAMPLES) #in minutes
-awakeHours=np.random.normal(24*60-461.4, 72.1, SAMPLES) #in minutes
 
-if __name__ == "__main__":
+def simulate(LATITUDE, DAYLIGHT_SAVINGS, SAMPLES):
+    #LATITUDE in degrees from equator
+    #DAYLIGHT_SAVINGS=False|True -> Simulació amb canvi d'horari?
+    wakingTime=np.random.normal(420.39, 40.7, SAMPLES) #in minutes
+    awakeHours=np.random.normal(24*60-461.4, 72.1, SAMPLES) #in minutes
     energy=0
     for i in range(SAMPLES): #Loop over samples
         for d in range(365): #Loop over days in year
@@ -23,4 +22,7 @@ if __name__ == "__main__":
         print("sample %d done"%i)
 
     energy=energy/SAMPLES
-    print(energy)
+    return energy
+
+if __name__ == "__main__":
+    print(simulate(41.3818, False, 1000)) #Latitud de Barcelona
